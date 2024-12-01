@@ -5,10 +5,8 @@ import requests
 
 app = FastAPI()
 
-# Create Jinja2Templates instance
 templates = Jinja2Templates(directory="templates")
 
-# Add static files (CSS)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 url = "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json"
@@ -26,7 +24,7 @@ async def info(request: Request):
 @app.get("/")
 def index(request: Request):
     """Main page with information about CVEs."""
-    # Load CVE data from the external source
+    # load CVE data
     global vulnerabilities
     response = requests.get(url)
     if response.status_code == 200:
